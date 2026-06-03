@@ -273,13 +273,21 @@ button.active{
   z-index:8;
   display:none;
   border-radius:6px;
-  background:#f59e0bcc;
-  outline:2px solid var(--amber);
+  background:#0f172a18;
+  outline:1px dashed #0f172a45;
   pointer-events:none;
 }
 
+.board.wall-mode .wall-preview{
+  display:block;
+}
+
 .wall-slot:hover + .wall-preview,
-.wall-slot:focus-visible + .wall-preview{
+.wall-slot:focus-visible + .wall-preview,
+.board:has(.wall-slot:hover) .wall-slot:hover + .wall-preview,
+.board:has(.wall-slot:focus-visible) .wall-slot:focus-visible + .wall-preview{
+  background:#f59e0bcc;
+  outline:2px solid var(--amber);
   display:block;
 }
 
