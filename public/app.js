@@ -16,6 +16,7 @@ const modalIconEl = document.getElementById("modalIcon");
 const modalTitleEl = document.getElementById("modalTitle");
 const modalBodyEl = document.getElementById("modalBody");
 const modalOkBtn = document.getElementById("modalOk");
+const modalCancelBtn = document.getElementById("modalCancel");
 const dontShowWrap = document.getElementById("dontShowWrap");
 const dontShowRules = document.getElementById("dontShowRules");
 
@@ -24,6 +25,7 @@ let state = null;
 let mode = "move";
 let announcedWinner = null;
 let modalAfterClose = null;
+let modalConfirmAction = null;
 
 const urlRoom = new URLSearchParams(location.search).get("room");
 roomInput.value = urlRoom || randomRoomCode();
@@ -50,12 +52,16 @@ function roomLink(){
   return location.origin + "?room=" + encodeURIComponent(roomInput.value.trim());
 }
 
-function showModal({ icon = "!", title, html, showDontShow = false, onClose = null }){
+function showModal({ icon = "!", title, html, showDontShow = false, confirmText = "تم", cancelText = null, onConfirm = null, onClose = null }){
   modalIconEl.textContent = icon;
   modalTitleEl.textContent = title;
   modalBodyEl.innerHTML = html;
   dontShowWrap.classList.toggle("hidden", !showDontShow);
   dontShowRules.checked = false;
+  modalOkBtn.textContent = confirmText;
+  modalCancelBtn.textContent = cancelText || "إلغاء";
+  modalCancelBtn.classList.toggle("hidden", !cancelText);
+  modalConfirmAction = onConfirm;
   modalAfterClose = onClose;
   modalEl.classList.remove("hidden");
 }
@@ -64,7 +70,14 @@ function closeModal(){
   modalEl.classList.add("hidden");
   const afterClose = modalAfterClose;
   modalAfterClose = null;
+  modalConfirmAction = null;
   if(afterClose) afterClose();
+}
+
+function confirmModal(){
+  const action = modalConfirmAction;
+  closeModal();
+  if(action) action();
 }
 
 function showRules(force = false){
@@ -110,7 +123,8 @@ function showWinner(winner){
 moveModeBtn.onclick = () => setMode("move");
 wallModeBtn.onclick = () => setMode("wall");
 rulesBtn.onclick = () => showRules(true);
-modalOkBtn.onclick = closeModal;
+modalOkBtn.onclick = confirmModal;
+modalCancelBtn.onclick = closeModal;
 
 joinBtn.onclick = () => {
   const roomId = roomInput.value.trim() || randomRoomCode();
@@ -130,7 +144,16 @@ shareBtn.onclick = async () => {
   showNotice("تم نسخ الرابط", "أرسل الرابط للاعب الثاني للدخول إلى نفس اللعبة.", "✓");
 };
 
-restartBtn.onclick = () => socket.emit("restart");
+restartBtn.onclick = () => {
+  showModal({
+    icon: "!",
+    title: "تأكيد الإعادة",
+    html: "<p>هل تريد إعادة اللعبة من البداية؟</p>",
+    confirmText: "إعادة",
+    cancelText: "إلغاء",
+    onConfirm: () => socket.emit("restart")
+  });
+};
 
 socket.on("joined", data => {
   myColor = data.color;
