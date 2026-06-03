@@ -1,4 +1,4 @@
-const CACHE = "barricade-v5";
+const CACHE = "barricade-v10";
 const ASSETS = ["/", "/index.html", "/style.css", "/app.js", "/manifest.json", "/icon.svg"];
 
 self.addEventListener("install", e => {

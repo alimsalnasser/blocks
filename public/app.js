@@ -234,23 +234,37 @@ function addWallSlots(){
 }
 
 function addWallSlot(x1, y1, x2, y2, orientation){
-  const { padding, gap, cellSize } = boardMetrics();
+  const { padding, gap, cellSize, wallSize } = boardMetrics();
   const hit = Math.max(30, gap + 20);
   const slot = document.createElement("button");
   slot.type = "button";
   slot.className = "wall-slot " + orientation;
   slot.setAttribute("aria-label", "إضافة حاجز");
+  const preview = document.createElement("span");
+  preview.className = "wall-preview " + orientation;
 
   if(orientation === "vertical"){
-    slot.style.left = (padding + (x1 + 1) * cellSize + x1 * gap + gap / 2 - hit / 2) + "px";
-    slot.style.top = (padding + y1 * (cellSize + gap)) + "px";
+    const wallLeft = padding + (x1 + 1) * cellSize + x1 * gap + gap / 2 - wallSize / 2;
+    const wallTop = padding + y1 * (cellSize + gap);
+    slot.style.left = (wallLeft + wallSize / 2 - hit / 2) + "px";
+    slot.style.top = wallTop + "px";
     slot.style.width = hit + "px";
     slot.style.height = cellSize + "px";
+    preview.style.left = wallLeft + "px";
+    preview.style.top = wallTop + "px";
+    preview.style.width = wallSize + "px";
+    preview.style.height = cellSize + "px";
   }else{
-    slot.style.left = (padding + x1 * (cellSize + gap)) + "px";
-    slot.style.top = (padding + (y1 + 1) * cellSize + y1 * gap + gap / 2 - hit / 2) + "px";
+    const wallLeft = padding + x1 * (cellSize + gap);
+    const wallTop = padding + (y1 + 1) * cellSize + y1 * gap + gap / 2 - wallSize / 2;
+    slot.style.left = wallLeft + "px";
+    slot.style.top = (wallTop + wallSize / 2 - hit / 2) + "px";
     slot.style.width = cellSize + "px";
     slot.style.height = hit + "px";
+    preview.style.left = wallLeft + "px";
+    preview.style.top = (wallTop - 5) + "px";
+    preview.style.width = cellSize + "px";
+    preview.style.height = wallSize + "px";
   }
 
   slot.onclick = event => {
@@ -259,6 +273,7 @@ function addWallSlot(x1, y1, x2, y2, orientation){
   };
 
   boardEl.appendChild(slot);
+  boardEl.appendChild(preview);
 }
 
 function addWall(wall){
