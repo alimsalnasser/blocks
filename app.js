@@ -258,7 +258,7 @@ function addWallSlot(x1, y1, x2, y2, orientation){
     const wallLeft = padding + x1 * (cellSize + gap);
     const wallTop = padding + (y1 + 1) * cellSize + y1 * gap + gap / 2 - wallSize / 2;
     slot.style.left = wallLeft + "px";
-    slot.style.top = (wallTop + wallSize / 2 - hit / 2) + "px";
+    slot.style.top = (wallTop + wallSize / 2 - hit / 2 - 5) + "px";
     slot.style.width = cellSize + "px";
     slot.style.height = hit + "px";
     preview.style.left = wallLeft + "px";
