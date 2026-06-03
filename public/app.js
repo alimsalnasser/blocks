@@ -215,7 +215,8 @@ function boardMetrics(){
   const padding = parseFloat(styles.paddingLeft) || 8;
   const gap = parseFloat(styles.gap) || 5;
   const cellSize = (rect.width - padding * 2 - gap * 8) / 9;
-  return { padding, gap, cellSize };
+  const wallSize = Math.max(5, Math.min(8, gap + 1));
+  return { padding, gap, cellSize, wallSize };
 }
 
 function addWallSlots(){
@@ -242,13 +243,13 @@ function addWallSlot(x1, y1, x2, y2, orientation){
 
   if(orientation === "vertical"){
     slot.style.left = (padding + (x1 + 1) * cellSize + x1 * gap + gap / 2 - hit / 2) + "px";
-    slot.style.top = (padding + y1 * (cellSize + gap) - 4) + "px";
+    slot.style.top = (padding + y1 * (cellSize + gap)) + "px";
     slot.style.width = hit + "px";
-    slot.style.height = (cellSize + 8) + "px";
+    slot.style.height = cellSize + "px";
   }else{
-    slot.style.left = (padding + x1 * (cellSize + gap) - 4) + "px";
+    slot.style.left = (padding + x1 * (cellSize + gap)) + "px";
     slot.style.top = (padding + (y1 + 1) * cellSize + y1 * gap + gap / 2 - hit / 2) + "px";
-    slot.style.width = (cellSize + 8) + "px";
+    slot.style.width = cellSize + "px";
     slot.style.height = hit + "px";
   }
 
@@ -261,22 +262,22 @@ function addWallSlot(x1, y1, x2, y2, orientation){
 }
 
 function addWall(wall){
-  const { padding, gap, cellSize } = boardMetrics();
+  const { padding, gap, cellSize, wallSize } = boardMetrics();
   const x = Math.min(wall.x1, wall.x2);
   const y = Math.min(wall.y1, wall.y2);
   const div = document.createElement("div");
   div.className = "wall " + wall.color;
 
   if(wall.y1 === wall.y2){
-    div.style.left = (padding + (x + 1) * cellSize + x * gap + gap / 2 - 4) + "px";
+    div.style.left = (padding + (x + 1) * cellSize + x * gap + gap / 2 - wallSize / 2) + "px";
     div.style.top = (padding + y * (cellSize + gap)) + "px";
-    div.style.width = "8px";
+    div.style.width = wallSize + "px";
     div.style.height = cellSize + "px";
   }else{
     div.style.left = (padding + x * (cellSize + gap)) + "px";
-    div.style.top = (padding + (y + 1) * cellSize + y * gap + gap / 2 - 4) + "px";
+    div.style.top = (padding + (y + 1) * cellSize + y * gap + gap / 2 - wallSize / 2) + "px";
     div.style.width = cellSize + "px";
-    div.style.height = "8px";
+    div.style.height = wallSize + "px";
   }
 
   boardEl.appendChild(div);

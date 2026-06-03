@@ -28,9 +28,9 @@ button,input{
 
 button{
   border:0;
-  min-height:48px;
+  min-height:40px;
   border-radius:8px;
-  padding:12px 14px;
+  padding:9px 12px;
   background:#334155;
   color:var(--text);
   cursor:pointer;
@@ -77,14 +77,14 @@ h1{
 
 .room-panel,.game-info,.tools{
   display:grid;
-  gap:8px;
-  margin:10px 0;
+  gap:7px;
+  margin:8px 0;
 }
 
 .room-panel{
   grid-template-columns:1fr;
   background:var(--panel);
-  padding:10px;
+  padding:9px;
   border-radius:8px;
 }
 
@@ -97,13 +97,13 @@ h1{
 
 .room-code input{
   width:100%;
-  min-height:50px;
+  min-height:44px;
   border:1px solid #334155;
   border-radius:8px;
   padding:10px 12px;
   background:#fff;
   color:#0f172a;
-  font-size:22px;
+  font-size:20px;
   text-align:center;
   letter-spacing:2px;
 }
@@ -178,14 +178,14 @@ button.active{
 
 .board{
   direction:ltr;
-  width:min(96vw,560px);
+  width:min(94vw,540px);
   aspect-ratio:1/1;
   margin:0 auto;
-  padding:8px;
+  padding:12px;
   display:grid;
   grid-template-columns:repeat(9,1fr);
   grid-template-rows:repeat(9,1fr);
-  gap:5px;
+  gap:6px;
   position:relative;
   overflow:hidden;
   border-radius:8px;
@@ -199,7 +199,7 @@ button.active{
   min-height:0;
   padding:0;
   border:1px solid var(--grid);
-  border-radius:7px;
+  border-radius:6px;
   background:var(--cell);
   position:relative;
   z-index:1;
@@ -207,9 +207,9 @@ button.active{
 
 .goal-line{
   position:absolute;
-  left:12px;
-  right:12px;
-  height:6px;
+  left:22px;
+  right:22px;
+  height:4px;
   border-radius:999px;
   z-index:3;
   pointer-events:none;
@@ -217,12 +217,12 @@ button.active{
 }
 
 .red-goal{
-  top:4px;
+  top:7px;
   background:var(--red);
 }
 
 .blue-goal{
-  bottom:4px;
+  bottom:7px;
   background:var(--blue);
 }
 
@@ -273,19 +273,19 @@ button.active{
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  border-radius:8px;
-  background:#0f172a24;
-  outline:1px dashed #0f172a55;
+  border-radius:6px;
+  background:#0f172a18;
+  outline:1px dashed #0f172a45;
 }
 
 .wall-slot.vertical::after{
-  width:8px;
-  height:72%;
+  width:6px;
+  height:100%;
 }
 
 .wall-slot.horizontal::after{
-  width:72%;
-  height:8px;
+  width:100%;
+  height:6px;
 }
 
 .wall-slot:hover::after,
@@ -403,14 +403,14 @@ button.active{
   }
 
   .tools button,.room-actions button{
-    min-height:52px;
-    padding:10px 8px;
+    min-height:44px;
+    padding:9px 8px;
   }
 
   .board{
     width:calc(100vw - 20px);
-    gap:4px;
-    padding:7px;
+    gap:5px;
+    padding:10px;
   }
 
   .goal-label{
