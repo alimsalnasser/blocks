@@ -241,7 +241,7 @@ function addWallSlot(x1, y1, x2, y2, orientation){
   slot.className = "wall-slot " + orientation;
   slot.setAttribute("aria-label", "إضافة حاجز");
   const preview = document.createElement("span");
-  preview.className = "wall-preview";
+  preview.className = "wall-preview " + orientation;
 
   if(orientation === "vertical"){
     const wallLeft = padding + (x1 + 1) * cellSize + x1 * gap + gap / 2 - wallSize / 2;
@@ -250,8 +250,8 @@ function addWallSlot(x1, y1, x2, y2, orientation){
     slot.style.top = wallTop + "px";
     slot.style.width = hit + "px";
     slot.style.height = cellSize + "px";
-    preview.style.left = ((hit - wallSize) / 2) + "px";
-    preview.style.top = "0px";
+    preview.style.left = wallLeft + "px";
+    preview.style.top = wallTop + "px";
     preview.style.width = wallSize + "px";
     preview.style.height = cellSize + "px";
   }else{
@@ -261,8 +261,8 @@ function addWallSlot(x1, y1, x2, y2, orientation){
     slot.style.top = (wallTop + wallSize / 2 - hit / 2) + "px";
     slot.style.width = cellSize + "px";
     slot.style.height = hit + "px";
-    preview.style.left = "0px";
-    preview.style.top = (((hit - wallSize) / 2) - 5) + "px";
+    preview.style.left = wallLeft + "px";
+    preview.style.top = wallTop + "px";
     preview.style.width = cellSize + "px";
     preview.style.height = wallSize + "px";
   }
@@ -272,8 +272,8 @@ function addWallSlot(x1, y1, x2, y2, orientation){
     placeWall(x1, y1, x2, y2);
   };
 
-  slot.appendChild(preview);
   boardEl.appendChild(slot);
+  boardEl.appendChild(preview);
 }
 
 function addWall(wall){

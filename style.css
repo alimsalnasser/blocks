@@ -252,7 +252,7 @@ button.active{
 
 .wall-slot{
   position:absolute;
-  z-index:8;
+  z-index:9;
   display:none;
   min-height:0;
   padding:0;
@@ -270,16 +270,17 @@ button.active{
 
 .wall-preview{
   position:absolute;
+  z-index:8;
+  display:none;
   border-radius:6px;
-  background:#0f172a18;
-  outline:1px dashed #0f172a45;
+  background:#f59e0bcc;
+  outline:2px solid var(--amber);
   pointer-events:none;
 }
 
-.wall-slot:hover .wall-preview,
-.wall-slot:focus-visible .wall-preview{
-  background:#f59e0bcc;
-  outline:2px solid var(--amber);
+.wall-slot:hover + .wall-preview,
+.wall-slot:focus-visible + .wall-preview{
+  display:block;
 }
 
 .modal{
