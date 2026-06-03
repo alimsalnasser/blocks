@@ -262,7 +262,7 @@ function addWallSlot(x1, y1, x2, y2, orientation){
     slot.style.width = cellSize + "px";
     slot.style.height = hit + "px";
     preview.style.left = wallLeft + "px";
-    preview.style.top = (wallTop - 2) + "px";
+    preview.style.top = (wallTop) + "px";
     preview.style.width = cellSize + "px";
     preview.style.height = wallSize + "px";
   }
